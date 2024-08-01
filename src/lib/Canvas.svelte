@@ -74,11 +74,9 @@
 		textEl.offsetX(textEl.width() / 2);
 		textEl.offsetY(textEl.height() / 2);
 
-		setTimeout(() => {
-			const parent = textEl.getParent()!;
-			textEl.x((parent.width() * 50 * 0.01) / parent.scaleX());
-			textEl.y((parent.height() * 58 * 0.01) / parent.scaleY());
-		}, 100);
+		const parent = textEl.getParent()!;
+		textEl.x((parent.width() * 50 * 0.01) / parent.scaleX());
+		textEl.y((parent.height() * 58 * 0.01) / parent.scaleY());
 	}
 
 	function onResized() {
@@ -117,20 +115,20 @@
 			<Image config={{ image }} />
 		</Layer>
 		<Layer config={{ scaleX: canvasScale, scaleY: canvasScale }}>
-			<Text
-				bind:handle={textEl}
-				config={{
-					text: 'ท่านไม่มีสิทธิ์',
-					fontSize: 56,
-					fill: 'red',
-					align: 'center',
-					verticalAlign: 'middle',
-					name: 'text',
-					origin: 'center'
-				}}
-			/>
-
 			{#if ready}
+				<Text
+					bind:handle={textEl}
+					config={{
+						text: 'ท่านไม่มีสิทธิ์',
+						fontSize: 56,
+						fill: 'red',
+						align: 'center',
+						verticalAlign: 'middle',
+						name: 'text',
+						origin: 'center'
+					}}
+				/>
+
 				<EditableText bind:this={editableText} {text} fontSize={56} xPercent={50} yPercent={65} />
 			{/if}
 		</Layer>
