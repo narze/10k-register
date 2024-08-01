@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import type CanvasComponent from '$lib/Canvas.svelte';
-	import image from '$lib/image.jpg';
+	import image from '$lib/image.png';
 
 	let Canvas: typeof CanvasComponent;
 	let canvas: CanvasComponent;
@@ -20,9 +20,10 @@
 </script>
 
 <section class="flex h-full flex-col items-center justify-center gap-4">
-	<svelte:component this={Canvas} bind:this={canvas} bgUrl={image} text={'Meme, I embrace.'} />
+	<svelte:component this={Canvas} bind:this={canvas} bgUrl={image} text={'เนื่องจาก...'} />
 
-	<button on:click={generateImage} class="btn">Save</button>
+	<div>ดับเบิลคลิกที่ข้อความเพื่อแก้ไข</div>
+	<button on:click={generateImage} class="btn btn-primary">Save</button>
 
 	<dialog class="modal" bind:this={imageModal}>
 		<div class="modal-box space-y-4">
@@ -32,7 +33,7 @@
 			</h3>
 			<form method="dialog" class="modal-form">
 				<div class="flex justify-center">
-					<button class="btn">Close</button>
+					<button class="btn btn-primary">Close</button>
 				</div>
 			</form>
 		</div>

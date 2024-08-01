@@ -4,16 +4,19 @@
 
 	import EditableText from './EditableText.svelte';
 	import Konva from 'konva';
+	import { Text } from 'svelte-konva';
 
 	export let bgUrl = 'https://placehold.co/600x400/000000/FFF';
 	export let text = 'Text';
+
+	let textEl: Konva.Text;
 
 	export function saveImage() {
 		editableText.hideTransformer();
 
 		const dataURL = stage.toDataURL({
 			pixelRatio: window.devicePixelRatio,
-			mimeType: 'image/jpeg',
+			mimeType: 'image/png',
 			quality: 1
 		});
 
@@ -67,6 +70,17 @@
 		maxWidth = parseInt(maxWidthPx.replace('px', ''));
 	}
 
+	$: if (textEl) {
+		textEl.offsetX(textEl.width() / 2);
+		textEl.offsetY(textEl.height() / 2);
+
+		setTimeout(() => {
+			const parent = textEl.getParent()!;
+			textEl.x((parent.width() * 50 * 0.01) / parent.scaleX());
+			textEl.y((parent.height() * 58 * 0.01) / parent.scaleY());
+		}, 100);
+	}
+
 	function onResized() {
 		width = window.innerWidth - (container?.offsetLeft ?? 16) * 2;
 		// clamp width between min and max
@@ -103,8 +117,21 @@
 			<Image config={{ image }} />
 		</Layer>
 		<Layer config={{ scaleX: canvasScale, scaleY: canvasScale }}>
+			<Text
+				bind:handle={textEl}
+				config={{
+					text: 'ท่านไม่มีสิทธิ์',
+					fontSize: 56,
+					fill: 'red',
+					align: 'center',
+					verticalAlign: 'middle',
+					name: 'text',
+					origin: 'center'
+				}}
+			/>
+
 			{#if ready}
-				<EditableText bind:this={editableText} {text} fontSize={96} xPercent={50} yPercent={90} />
+				<EditableText bind:this={editableText} {text} fontSize={56} xPercent={50} yPercent={65} />
 			{/if}
 		</Layer>
 	</Stage>

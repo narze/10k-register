@@ -27,7 +27,7 @@
 	$: textConfig = {
 		text,
 		fontSize,
-		fill: 'white',
+		fill: 'red',
 		align: 'center',
 		verticalAlign: 'middle',
 		draggable: true,
